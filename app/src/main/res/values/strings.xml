@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">AmazingCamera</string>
+    <string name="action_settings">Settings</string>
+    <string name="pick_photo">Pick Photo</string>
+    <string name="pick_photo_without_camera">Pick Photo Without Camera</string>
+    <string name="pick_one_photo">Pick Single Photo</string>
+    <string name="pick_photo_gif">Pick Photos (show gif)</string>
+</resources>
