@@ -12,6 +12,7 @@ import java.util.List;
  */
 public interface Selectable {
 
+
     /**
      * Indicates if the item at position position is selected
      *

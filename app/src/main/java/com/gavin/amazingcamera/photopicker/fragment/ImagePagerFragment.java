@@ -126,9 +126,8 @@ public class ImagePagerFragment extends Fragment {
     }
 
 
-    @Nullable
-    @Override public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                                       Bundle savedInstanceState) {
+    @Nullable @Override public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                                                 Bundle savedInstanceState) {
 
         View rootView = inflater.inflate(R.layout.picker_fragment_image_pager, container, false);
 

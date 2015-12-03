@@ -37,6 +37,8 @@ public class MyCameraActivity extends Activity {
     private Camera camera = null;
     private MySurfaceView mySurfaceView = null;
 
+    private final String SAVE_PIC_DIR = "AmazingCamera";
+
     private byte[] buffer = null;
 
     private final int TYPE_FILE_IMAGE = 1;
@@ -228,7 +230,7 @@ public class MyCameraActivity extends Activity {
 
         File mediaStorageDir = new File (Environment
                 .getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES)
-                ,"MyPictures");
+                , SAVE_PIC_DIR);
         if (!mediaStorageDir.exists()){
             if (!mediaStorageDir.mkdirs()){
                 Log.i("MyPictures", "创建图片存储路径目录失败");

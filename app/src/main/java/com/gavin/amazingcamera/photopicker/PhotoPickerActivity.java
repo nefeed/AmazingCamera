@@ -176,4 +176,3 @@ public class PhotoPickerActivity extends AppCompatActivity {
         this.showGif = showGif;
     }
 }
-

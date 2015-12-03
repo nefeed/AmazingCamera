@@ -46,4 +46,5 @@ public class PhotoDirectoryLoader extends CursorLoader {
         super(context, uri, projection, selection, selectionArgs, sortOrder);
     }
 
+
 }

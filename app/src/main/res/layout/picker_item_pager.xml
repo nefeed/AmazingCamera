@@ -12,7 +12,6 @@
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
       android:src="@drawable/ic_photo_black_48dp"
-      android:id="@+id/iv_pager"
-      />
+      android:id="@+id/iv_pager" />
 
 </ScrollView>

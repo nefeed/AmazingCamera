@@ -14,8 +14,8 @@ import java.util.List;
  * E-mail: gavin.zhang@healthbok.com
  * Date:  2015/12/3 0003
  */
-public abstract class SelectableAdapter <VH extends RecyclerView.ViewHolder>
-    extends RecyclerView.Adapter<VH> implements Selectable {
+public abstract class SelectableAdapter<VH extends RecyclerView.ViewHolder>
+        extends RecyclerView.Adapter<VH> implements Selectable {
 
     private static final String TAG = SelectableAdapter.class.getSimpleName();
 
@@ -95,4 +95,5 @@ public abstract class SelectableAdapter <VH extends RecyclerView.ViewHolder>
     @Override public List<Photo> getSelectedPhotos() {
         return selectedPhotos;
     }
+
 }

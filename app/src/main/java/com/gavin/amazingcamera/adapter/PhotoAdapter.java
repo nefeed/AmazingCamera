@@ -24,6 +24,7 @@ import java.util.ArrayList;
  * Date:  2015/12/2 0002
  */
 public class PhotoAdapter extends RecyclerView.Adapter<PhotoAdapter.PhotoViewHolder> {
+
     private ArrayList<String> photoPaths = new ArrayList<String>();
     private LayoutInflater inflater;
 
@@ -88,4 +89,5 @@ public class PhotoAdapter extends RecyclerView.Adapter<PhotoAdapter.PhotoViewHol
             vSelected.setVisibility(View.GONE);
         }
     }
+
 }

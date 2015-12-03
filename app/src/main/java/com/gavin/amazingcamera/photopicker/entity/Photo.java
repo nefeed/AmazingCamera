@@ -46,5 +46,4 @@ public class Photo {
     public void setId(int id) {
         this.id = id;
     }
-
 }
