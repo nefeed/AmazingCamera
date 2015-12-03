@@ -3,4 +3,10 @@
     <dimen name="activity_horizontal_margin">16dp</dimen>
     <dimen name="activity_vertical_margin">16dp</dimen>
     <dimen name="fab_margin">16dp</dimen>
+    <dimen name="left_fab_margin">16dp</dimen>
+	
+	<!-- Photo Picker -->
+	<dimen name="iwf_actionBarSize">48dip</dimen>
+	<dimen name="item_photo_size">80dip</dimen>
+	<dimen name="item_camera_size">80dip</dimen>
 </resources>

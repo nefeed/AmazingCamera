@@ -27,11 +27,15 @@
             </intent-filter>
         </activity>
 
-        <activity android:name="me.iwf.photopicker.PhotoPickerActivity"
+        <activity android:name="com.gavin.amazingcamera.photopicker.PhotoPickerActivity"
             android:theme="@style/Theme.AppCompat.NoActionBar"
             />
 
-        <activity android:name="me.iwf.photopicker.PhotoPagerActivity"
+        <activity android:name="com.gavin.amazingcamera.photopicker.PhotoPagerActivity"
+            android:theme="@style/Theme.AppCompat.NoActionBar"/>
+
+        <!--自定义的相机界面-->
+        <activity android:name="com.gavin.amazingcamera.MyCameraActivity"
             android:theme="@style/Theme.AppCompat.NoActionBar"/>
 
     </application>

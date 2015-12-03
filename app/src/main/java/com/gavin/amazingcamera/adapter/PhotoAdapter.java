@@ -11,11 +11,12 @@ import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
 import com.gavin.amazingcamera.MainActivity;
+import com.gavin.amazingcamera.R;
+import com.gavin.amazingcamera.photopicker.PhotoPagerActivity;
 
 import java.io.File;
 import java.util.ArrayList;
 
-import me.iwf.photopicker.PhotoPagerActivity;
 
 /**
  * Author: Gavin
@@ -38,7 +39,7 @@ public class PhotoAdapter extends RecyclerView.Adapter<PhotoAdapter.PhotoViewHol
 
 
     @Override public PhotoViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View itemView = inflater.inflate(me.iwf.photopicker.R.layout.item_photo, parent, false);
+        View itemView = inflater.inflate(R.layout.item_photo, parent, false);
         return new PhotoViewHolder(itemView);
     }
 
@@ -52,8 +53,8 @@ public class PhotoAdapter extends RecyclerView.Adapter<PhotoAdapter.PhotoViewHol
                 .load(uri)
                 .centerCrop()
                 .thumbnail(0.1f)
-                .placeholder(me.iwf.photopicker.R.drawable.ic_photo_black_48dp)
-                .error(me.iwf.photopicker.R.drawable.ic_broken_image_black_48dp)
+                .placeholder(R.drawable.ic_photo_black_48dp)
+                .error(R.drawable.ic_broken_image_black_48dp)
                 .into(holder.ivPhoto);
 
         holder.ivPhoto.setOnClickListener(new View.OnClickListener() {
@@ -62,7 +63,7 @@ public class PhotoAdapter extends RecyclerView.Adapter<PhotoAdapter.PhotoViewHol
                 Intent intent = new Intent(mContext, PhotoPagerActivity.class);
                 intent.putExtra(PhotoPagerActivity.EXTRA_CURRENT_ITEM, position);
                 intent.putExtra(PhotoPagerActivity.EXTRA_PHOTOS, photoPaths);
-//                intent.putExtra(PhotoPagerActivity.EXTRA_SHOW_DELETE, true);
+                intent.putExtra(PhotoPagerActivity.EXTRA_SHOW_DELETE, true);
                 if (mContext instanceof MainActivity) {
                     ((MainActivity) mContext).previewPhoto(intent);
                 }
@@ -82,8 +83,8 @@ public class PhotoAdapter extends RecyclerView.Adapter<PhotoAdapter.PhotoViewHol
         private View vSelected;
         public PhotoViewHolder(View itemView) {
             super(itemView);
-            ivPhoto   = (ImageView) itemView.findViewById(me.iwf.photopicker.R.id.iv_photo);
-            vSelected = itemView.findViewById(me.iwf.photopicker.R.id.v_selected);
+            ivPhoto   = (ImageView) itemView.findViewById(R.id.iv_photo);
+            vSelected = itemView.findViewById(R.id.v_selected);
             vSelected.setVisibility(View.GONE);
         }
     }

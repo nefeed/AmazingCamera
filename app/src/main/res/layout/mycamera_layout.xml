@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools" >
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" >
+
+        <FrameLayout
+            android:id="@+id/camera_preview"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginRight="50dp">
+
+        </FrameLayout>
+
+        <LinearLayout
+            android:id="@+id/camera_option_layout"
+            android:orientation="horizontal"
+            android:layout_alignParentRight="true"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginRight="30dp" >
+
+            <ImageView
+                android:id="@+id/camera_capture"
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:scaleType="centerInside"
+                android:src="@drawable/camera_capture_button"
+                android:layout_gravity="center_vertical" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/resume_layout"
+            android:visibility="gone"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentLeft="true"
+            android:orientation="horizontal"
+            android:background="#000000"
+            android:layout_width="match_parent"
+            android:layout_height="80dp">
+
+            <ImageView
+                android:id="@+id/resume_Button"
+                android:layout_marginTop="25dp"
+                android:layout_marginLeft="30dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/camera_back"/>
+
+            <TextView
+                android:id="@+id/resume_txt"
+                android:layout_marginTop="25dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="15dp"
+                android:textSize="24sp"
+                android:textColor="#FFFFFF"
+                android:text="重拍" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/resume_bottom_layout"
+            android:visibility="gone"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentLeft="true"
+            android:orientation="horizontal"
+            android:background="#000000"
+            android:layout_width="match_parent"
+            android:layout_height="80dp">
+
+        </LinearLayout>
+
+
+        <RelativeLayout
+            android:id="@+id/reference_layout"
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true">
+
+            <ImageView
+                android:layout_gravity="center"
+                android:background="@drawable/ocr_background"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+
+            <ImageView
+                android:id="@+id/back_Button"
+                android:layout_alignParentLeft="true"
+                android:layout_marginLeft="30dp"
+                android:layout_marginTop="25dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/camera_back"/>
+
+            <TextView
+                android:id="@+id/back_txt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="25dp"
+                android:layout_marginLeft="75dp"
+                android:textSize="24sp"
+                android:textColor="#FFFFFF"
+                android:text="退出" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="请将身份证正面至于此区域"
+                android:paddingRight="65dp"
+                android:textSize="24sp"
+                android:textColor="#FFFFFF"
+                android:id="@+id/textView"
+                android:layout_marginBottom="30dp"
+                android:layout_alignParentBottom="true"
+                android:layout_centerHorizontal="true" />
+
+        </RelativeLayout>
+
+        <TextView
+            android:id="@+id/confirm_txt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="gone"
+            android:layout_marginTop="25dp"
+            android:layout_marginRight="30dp"
+            android:textSize="24sp"
+            android:textColor="#FFFFFF"
+            android:text="使用"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentRight="true" />
+
+    </RelativeLayout>
+
+</layout>
