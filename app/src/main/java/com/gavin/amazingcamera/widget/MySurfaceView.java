@@ -1,4 +1,4 @@
-package com.gavin.amazingcamera.util;
+package com.gavin.amazingcamera.widget;
 
 import android.content.Context;
 import android.hardware.Camera;

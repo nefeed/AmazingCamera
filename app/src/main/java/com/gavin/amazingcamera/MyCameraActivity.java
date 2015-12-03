@@ -1,6 +1,8 @@
 package com.gavin.amazingcamera;
 
 import android.app.Activity;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.hardware.Camera;
 import android.net.Uri;
 import android.os.Bundle;
@@ -12,7 +14,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.gavin.amazingcamera.util.MySurfaceView;
+import com.gavin.amazingcamera.util.BitmapUtil;
+import com.gavin.amazingcamera.widget.MySurfaceView;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -194,6 +197,14 @@ public class MyCameraActivity extends Activity {
     // -----------------------保存图片---------------------------------------
     private void saveImageToFile(){
         File file = getOutFile(TYPE_FILE_IMAGE);
+
+        Bitmap bitmap = BitmapFactory.decodeFile(file.getPath());
+
+        String bitmap64Str = BitmapUtil.convertIconToString(bitmap);
+
+        Log.d("MyPicture", "获得的图片的Bitmap64位Str为：" + bitmap64Str);
+        Toast.makeText(getApplicationContext(), "获得的图片的Bitmap64位Str为：" + bitmap64Str, Toast.LENGTH_SHORT).show();
+
         if (file == null){
             Toast.makeText(getApplicationContext(), "文件创建失败,请检查SD卡读写权限", Toast.LENGTH_SHORT).show();
             return ;

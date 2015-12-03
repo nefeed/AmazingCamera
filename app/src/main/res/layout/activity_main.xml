@@ -99,8 +99,7 @@
                     android:layout_centerHorizontal="true"
                     android:layout_below="@id/button_photo_gif"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    />
+                    android:layout_height="match_parent" />
 
             </RelativeLayout>
 

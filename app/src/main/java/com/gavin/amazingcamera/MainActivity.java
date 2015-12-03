@@ -32,6 +32,7 @@ import com.gavin.amazingcamera.adapter.PhotoAdapter;
 import com.gavin.amazingcamera.databinding.ActivityMainBinding;
 import com.gavin.amazingcamera.photopicker.PhotoPickerActivity;
 import com.gavin.amazingcamera.photopicker.utils.PhotoPickerIntent;
+import com.gavin.amazingcamera.util.BitmapUtil;
 
 import java.io.File;
 import java.text.SimpleDateFormat;
@@ -175,8 +176,8 @@ public class MainActivity extends AppCompatActivity {
         List<String> photos = new ArrayList<>();
         if (resultCode == RESULT_OK && requestCode == REQUEST_CODE) {
 
-            Log.i("MyPicture", imageFileUri.getEncodedPath());
             if (imageFileUri != null) {
+                Log.i("MyPicture", imageFileUri.getEncodedPath());
                 activityBinding.photoLayout.setVisibility(View.VISIBLE);
                 activityBinding.recyclerView.setVisibility(View.GONE);
                 setPicToImageView(activityBinding.photoImage, new File(imageFileUri.getEncodedPath()));
@@ -315,6 +316,12 @@ public class MainActivity extends AppCompatActivity {
         opts.inJustDecodeBounds = false;
 
         Bitmap bitmap = BitmapFactory.decodeFile(imageFile.getPath(), opts);
+
+        String bitmap64Str = BitmapUtil.convertIconToString(bitmap);
+
+        Log.d("MyPicture", "获得的图片的Bitmap64位Str为：" + bitmap64Str);
+        Toast.makeText(getApplicationContext(), "获得的图片的Bitmap64位Str为：" + bitmap64Str, Toast.LENGTH_SHORT).show();
+
         imageView.setImageBitmap(bitmap);
     }
 
