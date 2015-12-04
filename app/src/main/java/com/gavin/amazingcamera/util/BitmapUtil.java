@@ -22,9 +22,9 @@ public class BitmapUtil {
     public static String convertIconToString(Bitmap bitmap)
     {
         ByteArrayOutputStream baos = new ByteArrayOutputStream();// outputstream
-        bitmap.compress(Bitmap.CompressFormat.PNG, 100, baos);
+        bitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos);
         byte[] appicon = baos.toByteArray();// 转为byte数组
-        return Base64.encodeToString(appicon, Base64.DEFAULT);
+        return "data:image/jpeg;base64," + Base64.encodeToString(appicon, Base64.DEFAULT).trim();
 
     }
 

@@ -16,7 +16,6 @@ import android.support.annotation.NonNull;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.OrientationHelper;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
@@ -29,7 +28,11 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.gavin.amazingcamera.adapter.PhotoAdapter;
+import com.gavin.amazingcamera.base.eventbus.EventBusConfiguration;
+import com.gavin.amazingcamera.base.view.BaseActivity;
 import com.gavin.amazingcamera.databinding.ActivityMainBinding;
+import com.gavin.amazingcamera.delegate.OcrControllerDelegate;
+import com.gavin.amazingcamera.eventbus.OcrEvent;
 import com.gavin.amazingcamera.photopicker.PhotoPickerActivity;
 import com.gavin.amazingcamera.photopicker.utils.PhotoPickerIntent;
 import com.gavin.amazingcamera.util.BitmapUtil;
@@ -40,7 +43,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends BaseActivity {
 
     enum RequestCode {
         Button(R.id.button),
@@ -141,6 +144,11 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
         });
+    }
+
+    @Override
+    protected EventBusConfiguration loadEventBusConfiguration() {
+        return EventBusConfiguration.KEEP_ALIVE_ONCREATE_PAIR;
     }
 
     @Override
@@ -323,6 +331,8 @@ public class MainActivity extends AppCompatActivity {
         Log.d("MyPicture", "获得的图片的Bitmap64位Str为：" + bitmap64Str);
         Toast.makeText(getApplicationContext(), "获得的图片的Bitmap64位Str为：" + bitmap64Str, Toast.LENGTH_SHORT).show();
 
+        OcrControllerDelegate.ocrController.getIDCardInfo(bitmap64Str);
+
         imageView.setImageBitmap(bitmap);
     }
 
@@ -401,4 +411,8 @@ public class MainActivity extends AppCompatActivity {
         return false;
     }
 
+    // Ocr的订阅事件
+    public void onEventMainThread(OcrEvent event) {
+
+    }
 }

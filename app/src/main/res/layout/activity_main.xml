@@ -92,6 +92,13 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@id/second_button_layout" >
 
+                <TextView
+                    android:id="@+id/idcard_info"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="24sp"
+                    android:textColor="#333333" />
+
                 <ImageView
                     android:id="@+id/photoImage"
                     android:layout_gravity="start|center_horizontal"

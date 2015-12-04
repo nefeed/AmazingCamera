@@ -1,6 +1,5 @@
 package com.gavin.amazingcamera;
 
-import android.app.Activity;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.hardware.Camera;
@@ -14,6 +13,10 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.gavin.amazingcamera.base.eventbus.EventBusConfiguration;
+import com.gavin.amazingcamera.base.view.BaseActivity;
+import com.gavin.amazingcamera.delegate.OcrControllerDelegate;
+import com.gavin.amazingcamera.eventbus.OcrEvent;
 import com.gavin.amazingcamera.util.BitmapUtil;
 import com.gavin.amazingcamera.widget.MySurfaceView;
 
@@ -28,7 +31,7 @@ import java.util.Date;
  * E-mail: gavin.zhang@healthbok.com
  * Date:  2015/12/3 0003
  */
-public class MyCameraActivity extends Activity {
+public class MyCameraActivity extends BaseActivity {
 
     private ImageView btn_camera_capture = null;
     private ImageView btn_back = null;
@@ -63,7 +66,6 @@ public class MyCameraActivity extends Activity {
     };
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        // TODO Auto-generated method stub
         super.onCreate(savedInstanceState);
         setContentView(R.layout.mycamera_layout);
 
@@ -134,8 +136,13 @@ public class MyCameraActivity extends Activity {
             }
         });
 
-
     }
+
+    @Override
+    protected EventBusConfiguration loadEventBusConfiguration() {
+        return EventBusConfiguration.KEEP_ALIVE_ONCREATE_PAIR;
+    }
+
     @Override
     protected void onPause() {
         // TODO Auto-generated method stub
@@ -223,6 +230,8 @@ public class MyCameraActivity extends Activity {
 
         Log.d("MyPicture", "获得的图片的Bitmap64位Str为：" + bitmap64Str);
         Toast.makeText(getApplicationContext(), "获得的图片的Bitmap64位Str为：" + bitmap64Str, Toast.LENGTH_SHORT).show();
+
+        OcrControllerDelegate.ocrController.getIDCardInfo(bitmap64Str);
     }
 
     //-----------------------生成Uri---------------------------------------
@@ -270,4 +279,8 @@ public class MyCameraActivity extends Activity {
         return filePath;
     }
 
+    // Ocr的订阅事件
+    public void onEventMainThread(OcrEvent event) {
+
+    }
 }
