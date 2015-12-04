@@ -192,7 +192,7 @@ public class MainActivity extends AppCompatActivity {
             photoAdapter.notifyDataSetChanged();
         } else if (resultCode == RESULT_OK && requestCode == SYSTEM_CAMERA_REQUESTCODE) {
             if (imageFileUri != null) {
-                Log.i("MyPicture", imageFileUri.getEncodedPath());
+                Log.d("MyPicture", imageFileUri.getEncodedPath());
                 activityBinding.photoLayout.setVisibility(View.VISIBLE);
                 activityBinding.recyclerView.setVisibility(View.GONE);
                 setPicToImageView(activityBinding.photoImage, new File(imageFileUri.getEncodedPath()));
@@ -353,8 +353,8 @@ public class MainActivity extends AppCompatActivity {
                 , SAVE_PIC_DIR);
         if (!mediaStorageDir.exists()) {
             if (!mediaStorageDir.mkdirs()) {
-                Log.i("MyPictures", "创建图片存储路径目录失败");
-                Log.i("MyPictures", "mediaStorageDir : " + mediaStorageDir.getPath());
+                Log.d("MyPictures", "创建图片存储路径目录失败");
+                Log.d("MyPictures", "mediaStorageDir : " + mediaStorageDir.getPath());
                 return null;
             }
         }

@@ -67,7 +67,14 @@ public class MySurfaceView extends SurfaceView implements SurfaceHolder.Callback
         // 这里可以做变换。
         if(mCamera != null){
             Camera.Parameters parameters = mCamera.getParameters();
+            parameters.setJpegQuality(100); // 设置照片质量
             parameters.setPreviewSize(mPreviewSize.width, mPreviewSize.height);
+            if (parameters.getSupportedFocusModes().contains(Camera.Parameters.FOCUS_MODE_CONTINUOUS_PICTURE))
+            {
+                parameters.setFocusMode(Camera.Parameters.FOCUS_MODE_CONTINUOUS_PICTURE);
+            }
+            mCamera.cancelAutoFocus(); // 只有加上了这一句，才会自动对焦。
+            mCamera.setDisplayOrientation(0);
             mCamera.setParameters(parameters);
         }
 
@@ -125,8 +132,8 @@ public class MySurfaceView extends SurfaceView implements SurfaceHolder.Callback
 
 //        final int width = resolveSize(getSuggestedMinimumWidth(), widthMeasureSpec);
 //        final int height = resolveSize(getSuggestedMinimumHeight(), heightMeasureSpec);
-        Integer widthdp = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 1024, mResources.getDisplayMetrics());
-        Integer heightdp = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 768, mResources.getDisplayMetrics());
+        Integer widthdp = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 896, mResources.getDisplayMetrics());
+        Integer heightdp = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 672, mResources.getDisplayMetrics());
         final int width = widthdp;
         final int height = heightdp;
         setMeasuredDimension(width, height);

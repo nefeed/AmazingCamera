@@ -52,9 +52,9 @@ public class MyCameraActivity extends Activity {
         @Override
         public void onPictureTaken(byte[] data, Camera camera) {
             if (data == null){
-                Log.i("MyPicture", "picture taken data: null");
+                Log.d("MyPicture", "picture taken data: null");
             }else{
-                Log.i("MyPicture", "picture taken data: " + data.length);
+                Log.d("MyPicture", "picture taken data: " + data.length);
             }
 
             buffer = new byte[data.length];
@@ -199,21 +199,14 @@ public class MyCameraActivity extends Activity {
     private void saveImageToFile(){
         File file = getOutFile(TYPE_FILE_IMAGE);
 
-        Bitmap bitmap = BitmapFactory.decodeFile(file.getPath());
-
-        String bitmap64Str = BitmapUtil.convertIconToString(bitmap);
-
-        Log.d("MyPicture", "获得的图片的Bitmap64位Str为：" + bitmap64Str);
-        Toast.makeText(getApplicationContext(), "获得的图片的Bitmap64位Str为：" + bitmap64Str, Toast.LENGTH_SHORT).show();
-
         if (file == null){
             Toast.makeText(getApplicationContext(), "文件创建失败,请检查SD卡读写权限", Toast.LENGTH_SHORT).show();
             return ;
         }
-        Log.i("MyPicture", "自定义相机图片路径:" + file.getPath());
+        Log.d("MyPicture", "自定义相机图片路径:" + file.getPath());
         Toast.makeText(getApplicationContext(), "图片保存路径：" + file.getPath(), Toast.LENGTH_SHORT).show();
         if (buffer == null){
-            Log.i("MyPicture", "自定义相机Buffer: null");
+            Log.d("MyPicture", "自定义相机Buffer: null");
         }else{
             try{
                 FileOutputStream fos = new FileOutputStream(file);
@@ -223,6 +216,13 @@ public class MyCameraActivity extends Activity {
                 e.printStackTrace();
             }
         }
+
+        Bitmap bitmap = BitmapFactory.decodeFile(file.getPath());
+
+        String bitmap64Str = BitmapUtil.convertIconToString(bitmap);
+
+        Log.d("MyPicture", "获得的图片的Bitmap64位Str为：" + bitmap64Str);
+        Toast.makeText(getApplicationContext(), "获得的图片的Bitmap64位Str为：" + bitmap64Str, Toast.LENGTH_SHORT).show();
     }
 
     //-----------------------生成Uri---------------------------------------
@@ -241,12 +241,12 @@ public class MyCameraActivity extends Activity {
         }
 
         File mediaStorageDir = new File (Environment
-                .getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES)
+                .getExternalStoragePublicDirectory(Environment.DIRECTORY_DCIM)
                 , SAVE_PIC_DIR);
         if (!mediaStorageDir.exists()){
             if (!mediaStorageDir.mkdirs()){
-                Log.i("MyPictures", "创建图片存储路径目录失败");
-                Log.i("MyPictures", "mediaStorageDir : " + mediaStorageDir.getPath());
+                Log.d("MyPictures", "创建图片存储路径目录失败");
+                Log.d("MyPictures", "mediaStorageDir : " + mediaStorageDir.getPath());
                 return null;
             }
         }
