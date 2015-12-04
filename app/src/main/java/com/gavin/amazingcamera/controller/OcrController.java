@@ -54,7 +54,7 @@ public class OcrController {
             JSONObject json = new JSONObject();
             try {
                 json.put("cmd", "idcard_front");
-                json.put("pictype", "jpeg");
+                json.put("pictype", "jpg");
                 json.put("pic", bitmap64);
             } catch (JSONException e) {
                 e.printStackTrace();

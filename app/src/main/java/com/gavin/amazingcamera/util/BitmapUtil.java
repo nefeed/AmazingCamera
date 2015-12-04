@@ -24,7 +24,8 @@ public class BitmapUtil {
         ByteArrayOutputStream baos = new ByteArrayOutputStream();// outputstream
         bitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos);
         byte[] appicon = baos.toByteArray();// 转为byte数组
-        return "data:image/jpeg;base64," + Base64.encodeToString(appicon, Base64.DEFAULT).trim();
+//        return "data:image/jpeg;base64," + Base64.encodeToString(appicon, Base64.DEFAULT).trim();
+        return Base64.encodeToString(appicon, Base64.DEFAULT).trim();
 
     }
 

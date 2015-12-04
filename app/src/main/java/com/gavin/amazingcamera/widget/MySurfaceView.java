@@ -142,4 +142,5 @@ public class MySurfaceView extends SurfaceView implements SurfaceHolder.Callback
             mPreviewSize = getOptimalPreviewSize(mSupportedPreviewSizes, width, height);
         }
     }
+
 }

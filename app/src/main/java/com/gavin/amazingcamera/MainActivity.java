@@ -31,11 +31,14 @@ import com.gavin.amazingcamera.adapter.PhotoAdapter;
 import com.gavin.amazingcamera.base.eventbus.EventBusConfiguration;
 import com.gavin.amazingcamera.base.view.BaseActivity;
 import com.gavin.amazingcamera.databinding.ActivityMainBinding;
-import com.gavin.amazingcamera.delegate.OcrControllerDelegate;
 import com.gavin.amazingcamera.eventbus.OcrEvent;
+import com.gavin.amazingcamera.http.IDCardRecog;
 import com.gavin.amazingcamera.photopicker.PhotoPickerActivity;
 import com.gavin.amazingcamera.photopicker.utils.PhotoPickerIntent;
 import com.gavin.amazingcamera.util.BitmapUtil;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.io.File;
 import java.text.SimpleDateFormat;
@@ -74,6 +77,9 @@ public class MainActivity extends BaseActivity {
     private Uri imageFileUri = null;
     private final int TYPE_FILE_IMAGE = 1;
     private final int TYPE_FILE_VEDIO = 2;
+
+    private IDCardRecog idCardRecog;
+    private String apixKey = "1c62211d344a453a720437bad34ad9ea";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -331,7 +337,8 @@ public class MainActivity extends BaseActivity {
         Log.d("MyPicture", "获得的图片的Bitmap64位Str为：" + bitmap64Str);
         Toast.makeText(getApplicationContext(), "获得的图片的Bitmap64位Str为：" + bitmap64Str, Toast.LENGTH_SHORT).show();
 
-        OcrControllerDelegate.ocrController.getIDCardInfo(bitmap64Str);
+        idCardRecog = new IDCardRecog(apixKey, 80);
+        idCardRecog.recogFront(imageFile.getPath());
 
         imageView.setImageBitmap(bitmap);
     }
@@ -413,6 +420,25 @@ public class MainActivity extends BaseActivity {
 
     // Ocr的订阅事件
     public void onEventMainThread(OcrEvent event) {
+
+        JSONObject json = null;
+        try {
+            json = new JSONObject(event.msg);
+            if (json != null) {
+                String name = json.optString("name");
+                String sex = json.optString("sex");
+                String nation = json.optString("nation");
+                String birth = json.optString("birth");
+                String address = json.optString("address");
+                String number = json.optString("number");
+                toast(name + sex + nation + birth + address + number);
+
+                log(name + sex + nation + birth + address + number);
+            }
+        } catch (JSONException e) {
+            toast("该照片无法识别！");
+            e.printStackTrace();
+        }
 
     }
 }

@@ -1,12 +1,11 @@
 package com.gavin.amazingcamera;
 
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.hardware.Camera;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.util.Log;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
@@ -15,10 +14,12 @@ import android.widget.Toast;
 
 import com.gavin.amazingcamera.base.eventbus.EventBusConfiguration;
 import com.gavin.amazingcamera.base.view.BaseActivity;
-import com.gavin.amazingcamera.delegate.OcrControllerDelegate;
 import com.gavin.amazingcamera.eventbus.OcrEvent;
-import com.gavin.amazingcamera.util.BitmapUtil;
+import com.gavin.amazingcamera.http.IDCardRecog;
 import com.gavin.amazingcamera.widget.MySurfaceView;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -40,7 +41,7 @@ public class MyCameraActivity extends BaseActivity {
     private TextView txt_resume = null;
     private TextView txt_confirm = null;
 
-    private Camera camera = null;
+    private Camera mCamera = null;
     private MySurfaceView mySurfaceView = null;
 
     private final String SAVE_PIC_DIR = "AmazingCamera";
@@ -49,6 +50,9 @@ public class MyCameraActivity extends BaseActivity {
 
     private final int TYPE_FILE_IMAGE = 1;
     private final int TYPE_FILE_VEDIO = 2;
+
+    private IDCardRecog idCardRecog;
+    private String apixKey = "1c62211d344a453a720437bad34ad9ea";
 
     private Camera.PictureCallback pictureCallback = new Camera.PictureCallback() {
 
@@ -76,14 +80,10 @@ public class MyCameraActivity extends BaseActivity {
         txt_resume = (TextView) findViewById(R.id.resume_txt);
         txt_confirm = (TextView) findViewById(R.id.confirm_txt);
 
-
         btn_camera_capture.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-                camera.takePicture(null, null, pictureCallback);
-
-                intoChooseView();
+                mCamera.autoFocus(touchCallback);
             }
         });
 
@@ -107,7 +107,7 @@ public class MyCameraActivity extends BaseActivity {
             @Override
             public void onClick(View v) {
 
-                camera.startPreview();
+                mCamera.startPreview();
 
                 intoCameraView();
             }
@@ -118,7 +118,7 @@ public class MyCameraActivity extends BaseActivity {
             @Override
             public void onClick(View v) {
 
-                camera.startPreview();
+                mCamera.startPreview();
 
                 intoCameraView();
             }
@@ -131,7 +131,7 @@ public class MyCameraActivity extends BaseActivity {
                 //保存图片
                 saveImageToFile();
 
-                camera.startPreview();
+                mCamera.startPreview();
                 intoCameraView();
             }
         });
@@ -148,21 +148,29 @@ public class MyCameraActivity extends BaseActivity {
         // TODO Auto-generated method stub
         super.onPause();
 
-        camera.release();
-        camera = null;
+        mCamera.release();
+        mCamera = null;
     }
 
     @Override
     protected void onResume() {
         // TODO Auto-generated method stub
         super.onResume();
-        if (camera == null){
-            camera = getCameraInstance();
+        if (mCamera == null){
+            mCamera = getCameraInstance();
         }
         //必须放在onResume中，不然会出现Home键之后，再回到该APP，黑屏
-        mySurfaceView = new MySurfaceView(getApplicationContext(), camera);
+        mySurfaceView = new MySurfaceView(getApplicationContext(), mCamera);
         FrameLayout preview = (FrameLayout) findViewById(R.id.camera_preview);
         preview.addView(mySurfaceView);
+
+        mySurfaceView.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                mCamera.autoFocus(shutterCallback);
+                return false;
+            }
+        });
     }
 
     /*得到一相机对象*/
@@ -224,14 +232,17 @@ public class MyCameraActivity extends BaseActivity {
             }
         }
 
-        Bitmap bitmap = BitmapFactory.decodeFile(file.getPath());
+        idCardRecog = new IDCardRecog(apixKey, 100);
+        idCardRecog.recogFront(file.getPath());
 
-        String bitmap64Str = BitmapUtil.convertIconToString(bitmap);
-
-        Log.d("MyPicture", "获得的图片的Bitmap64位Str为：" + bitmap64Str);
-        Toast.makeText(getApplicationContext(), "获得的图片的Bitmap64位Str为：" + bitmap64Str, Toast.LENGTH_SHORT).show();
-
-        OcrControllerDelegate.ocrController.getIDCardInfo(bitmap64Str);
+//        Bitmap bitmap = BitmapFactory.decodeFile(file.getPath());
+//
+//        String bitmap64Str = BitmapUtil.convertIconToString(bitmap);
+//
+//        Log.d("MyPicture", "获得的图片的Bitmap64位Str为：" + bitmap64Str);
+//        Toast.makeText(getApplicationContext(), "获得的图片的Bitmap64位Str为：" + bitmap64Str, Toast.LENGTH_SHORT).show();
+//
+//        OcrControllerDelegate.ocrController.getIDCardInfo(bitmap64Str);
     }
 
     //-----------------------生成Uri---------------------------------------
@@ -279,8 +290,55 @@ public class MyCameraActivity extends BaseActivity {
         return filePath;
     }
 
-    // Ocr的订阅事件
-    public void onEventMainThread(OcrEvent event) {
+    private Camera.AutoFocusCallback shutterCallback = new Camera.AutoFocusCallback() {
+        @Override
+        public void onAutoFocus(boolean success, Camera camera) {
+            // success 表示定焦成功
+            if (success) {
+                mCamera.setOneShotPreviewCallback(null);
 
+                mCamera.takePicture(null, null, pictureCallback);
+
+                intoChooseView();
+            } else {
+                log("对焦失败了");
+            }
+        }
+    };
+
+    private Camera.AutoFocusCallback touchCallback = new Camera.AutoFocusCallback() {
+        @Override
+        public void onAutoFocus(boolean success, Camera camera) {
+            // success 表示定焦成功
+            if (success) {
+                mCamera.setOneShotPreviewCallback(null);
+            } else {
+                log("对焦失败了");
+            }
+        }
+    };
+
+     /**
+     * Ocr的订阅事件
+     */
+    public void onEventMainThread(OcrEvent event) {
+        JSONObject json = null;
+        try {
+            json = new JSONObject(event.msg);
+            if (json != null) {
+                String name = json.getString("name");
+                String sex = json.getString("sex");
+                String nation = json.getString("nation");
+                String birth = json.getString("birth");
+                String address = json.getString("address");
+                String number = json.getString("number");
+                toast(name + sex + nation + birth + address + number);
+
+                log(name + sex + nation + birth + address + number);
+            }
+        } catch (JSONException e) {
+            toast("该照片无法识别！");
+            e.printStackTrace();
+        }
     }
 }
