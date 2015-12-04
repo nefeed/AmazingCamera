@@ -68,6 +68,12 @@ public class MyCameraActivity extends BaseActivity {
             buffer = data.clone();
         }
     };
+
+    @Override
+    protected EventBusConfiguration loadEventBusConfiguration() {
+        return EventBusConfiguration.KEEP_ALIVE_ONCREATE_PAIR;
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -83,7 +89,7 @@ public class MyCameraActivity extends BaseActivity {
         btn_camera_capture.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mCamera.autoFocus(touchCallback);
+                mCamera.autoFocus(shutterCallback);
             }
         });
 
@@ -139,11 +145,6 @@ public class MyCameraActivity extends BaseActivity {
     }
 
     @Override
-    protected EventBusConfiguration loadEventBusConfiguration() {
-        return EventBusConfiguration.KEEP_ALIVE_ONCREATE_PAIR;
-    }
-
-    @Override
     protected void onPause() {
         // TODO Auto-generated method stub
         super.onPause();
@@ -167,7 +168,7 @@ public class MyCameraActivity extends BaseActivity {
         mySurfaceView.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
-                mCamera.autoFocus(shutterCallback);
+                mCamera.autoFocus(touchCallback);
                 return false;
             }
         });
@@ -219,7 +220,6 @@ public class MyCameraActivity extends BaseActivity {
             return ;
         }
         Log.d("MyPicture", "自定义相机图片路径:" + file.getPath());
-        Toast.makeText(getApplicationContext(), "图片保存路径：" + file.getPath(), Toast.LENGTH_SHORT).show();
         if (buffer == null){
             Log.d("MyPicture", "自定义相机Buffer: null");
         }else{
@@ -235,14 +235,6 @@ public class MyCameraActivity extends BaseActivity {
         idCardRecog = new IDCardRecog(apixKey, 100);
         idCardRecog.recogFront(file.getPath());
 
-//        Bitmap bitmap = BitmapFactory.decodeFile(file.getPath());
-//
-//        String bitmap64Str = BitmapUtil.convertIconToString(bitmap);
-//
-//        Log.d("MyPicture", "获得的图片的Bitmap64位Str为：" + bitmap64Str);
-//        Toast.makeText(getApplicationContext(), "获得的图片的Bitmap64位Str为：" + bitmap64Str, Toast.LENGTH_SHORT).show();
-//
-//        OcrControllerDelegate.ocrController.getIDCardInfo(bitmap64Str);
     }
 
     //-----------------------生成Uri---------------------------------------
@@ -326,18 +318,25 @@ public class MyCameraActivity extends BaseActivity {
         try {
             json = new JSONObject(event.msg);
             if (json != null) {
-                String name = json.getString("name");
-                String sex = json.getString("sex");
-                String nation = json.getString("nation");
-                String birth = json.getString("birth");
-                String address = json.getString("address");
-                String number = json.getString("number");
-                toast(name + sex + nation + birth + address + number);
+                if (json.has("name")){
+                    String name = json.getString("name");
+                    String sex = json.getString("sex");
+                    String nation = json.getString("nation");
+                    String birth = json.getString("birth");
+                    String address = json.getString("address");
+                    String number = json.getString("number");
+                    toast(name + sex + nation + birth + address + number);
 
-                log(name + sex + nation + birth + address + number);
+                    log(name + sex + nation + birth + address + number);
+
+                } else {
+                    Toast.makeText(this, "该照片无法识别！", Toast.LENGTH_LONG).show();
+                    log("该照片无法识别！");
+                }
             }
         } catch (JSONException e) {
-            toast("该照片无法识别！");
+            Toast.makeText(this, "该照片无法识别！", Toast.LENGTH_LONG).show();
+            log("该照片无法识别！");
             e.printStackTrace();
         }
     }

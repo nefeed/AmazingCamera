@@ -13,7 +13,6 @@ import android.os.Environment;
 import android.provider.MediaStore;
 import android.support.annotation.IdRes;
 import android.support.annotation.NonNull;
-import android.support.design.widget.Snackbar;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.OrientationHelper;
@@ -82,8 +81,15 @@ public class MainActivity extends BaseActivity {
     private String apixKey = "1c62211d344a453a720437bad34ad9ea";
 
     @Override
+    protected EventBusConfiguration loadEventBusConfiguration() {
+        return EventBusConfiguration.KEEP_ALIVE_ONCREATE_PAIR;
+    }
+
+
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         activityBinding = DataBindingUtil.setContentView(this, R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -126,8 +132,6 @@ public class MainActivity extends BaseActivity {
         activityBinding.fabCamera.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Snackbar.make(v, "打开了系统原生的相机", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
                 Intent intent = new Intent();
                 intent.setAction(MediaStore.ACTION_IMAGE_CAPTURE);
                 imageFileUri = getOutFileUri(TYPE_FILE_IMAGE);
@@ -140,8 +144,6 @@ public class MainActivity extends BaseActivity {
         activityBinding.fabAmazing.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Snackbar.make(v, "打开了自定义的相机", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
                 if (checkCameraHardWare(getApplicationContext())) {
                     Intent intent = new Intent(getApplicationContext(), MyCameraActivity.class);
                     startActivity(intent);
@@ -150,11 +152,6 @@ public class MainActivity extends BaseActivity {
                 }
             }
         });
-    }
-
-    @Override
-    protected EventBusConfiguration loadEventBusConfiguration() {
-        return EventBusConfiguration.KEEP_ALIVE_ONCREATE_PAIR;
     }
 
     @Override
@@ -214,6 +211,8 @@ public class MainActivity extends BaseActivity {
             }
         }
     }
+
+
 
     @Override
     public void onRequestPermissionsResult(int requestCode,
@@ -335,7 +334,6 @@ public class MainActivity extends BaseActivity {
         String bitmap64Str = BitmapUtil.convertIconToString(bitmap);
 
         Log.d("MyPicture", "获得的图片的Bitmap64位Str为：" + bitmap64Str);
-        Toast.makeText(getApplicationContext(), "获得的图片的Bitmap64位Str为：" + bitmap64Str, Toast.LENGTH_SHORT).show();
 
         idCardRecog = new IDCardRecog(apixKey, 80);
         idCardRecog.recogFront(imageFile.getPath());
@@ -420,25 +418,30 @@ public class MainActivity extends BaseActivity {
 
     // Ocr的订阅事件
     public void onEventMainThread(OcrEvent event) {
-
         JSONObject json = null;
         try {
             json = new JSONObject(event.msg);
             if (json != null) {
-                String name = json.optString("name");
-                String sex = json.optString("sex");
-                String nation = json.optString("nation");
-                String birth = json.optString("birth");
-                String address = json.optString("address");
-                String number = json.optString("number");
-                toast(name + sex + nation + birth + address + number);
+                if (json.has("name")){
+                    String name = json.getString("name");
+                    String sex = json.getString("sex");
+                    String nation = json.getString("nation");
+                    String birth = json.getString("birth");
+                    String address = json.getString("address");
+                    String number = json.getString("number");
+                    toast(name + sex + nation + birth + address + number);
 
-                log(name + sex + nation + birth + address + number);
+                    log(name + sex + nation + birth + address + number);
+
+                } else {
+                    Toast.makeText(this, "该照片无法识别！", Toast.LENGTH_LONG).show();
+                    log("该照片无法识别！");
+                }
             }
         } catch (JSONException e) {
-            toast("该照片无法识别！");
+            Toast.makeText(this, "该照片无法识别！", Toast.LENGTH_LONG).show();
+            log("该照片无法识别！");
             e.printStackTrace();
         }
-
     }
 }
