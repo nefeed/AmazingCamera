@@ -65,8 +65,8 @@ public class MainActivity extends AppCompatActivity {
 
     private final static int REQUEST_CODE = 1;
 
-    private final int SYSTEM_CAMERA_REQUESTCODE = REQUEST_CODE;
-    private final int MYAPP_CAMERA_REQUESTCODE = 2;
+    private final int SYSTEM_CAMERA_REQUESTCODE = 2;
+    private final int MYAPP_CAMERA_REQUESTCODE = 3;
     private final String SAVE_PIC_DIR = "AmazingCamera";
     private Uri imageFileUri = null;
     private final int TYPE_FILE_IMAGE = 1;
@@ -176,17 +176,10 @@ public class MainActivity extends AppCompatActivity {
         List<String> photos = new ArrayList<>();
         if (resultCode == RESULT_OK && requestCode == REQUEST_CODE) {
 
-            if (imageFileUri != null) {
-                Log.i("MyPicture", imageFileUri.getEncodedPath());
-                activityBinding.photoLayout.setVisibility(View.VISIBLE);
-                activityBinding.recyclerView.setVisibility(View.GONE);
-                setPicToImageView(activityBinding.photoImage, new File(imageFileUri.getEncodedPath()));
-                imageFileUri = null;
-            } else {
-                activityBinding.photoLayout.setVisibility(View.GONE);
-                activityBinding.recyclerView.setVisibility(View.VISIBLE);
-                imageFileUri = null;
-            }
+            activityBinding.photoLayout.setVisibility(View.GONE);
+            activityBinding.recyclerView.setVisibility(View.VISIBLE);
+            imageFileUri = null;
+
             if (data != null) {
                 photos = data.getStringArrayListExtra(PhotoPickerActivity.KEY_SELECTED_PHOTOS);
             }
@@ -197,6 +190,14 @@ public class MainActivity extends AppCompatActivity {
             }
 
             photoAdapter.notifyDataSetChanged();
+        } else if (resultCode == RESULT_OK && requestCode == SYSTEM_CAMERA_REQUESTCODE) {
+            if (imageFileUri != null) {
+                Log.i("MyPicture", imageFileUri.getEncodedPath());
+                activityBinding.photoLayout.setVisibility(View.VISIBLE);
+                activityBinding.recyclerView.setVisibility(View.GONE);
+                setPicToImageView(activityBinding.photoImage, new File(imageFileUri.getEncodedPath()));
+                imageFileUri = null;
+            }
         }
     }
 
