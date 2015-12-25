@@ -13,5 +13,7 @@
 	<color name="picker_text_40">#282828</color>
 	<color name="picker_text_80">#505050</color>
 	<color name="picker_text_120">#787878</color>
+
+	<color name="text_white">#FFFFFF</color>
 	
 </resources>

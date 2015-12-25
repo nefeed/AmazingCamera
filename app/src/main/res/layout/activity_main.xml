@@ -44,15 +44,30 @@
                     android:layout_weight="1"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
+                    android:background="@drawable/bg_button"
+                    android:textColor="@color/text_white"
                     android:text="@string/pick_photo"
-                    android:id="@+id/button"
-                    android:layout_toStartOf="@+id/button_photo_gif" />
+                    android:layout_marginStart="8dp"
+                    android:layout_marginEnd="8dp"
+                    android:layout_marginTop="4dp"
+                    android:layout_marginBottom="4dp"
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:id="@+id/button" />
 
                 <Button
                     android:layout_weight="1"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
+                    android:background="@drawable/bg_button"
+                    android:textColor="@color/text_white"
                     android:text="@string/pick_photo_without_camera"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginEnd="8dp"
+                    android:layout_marginTop="4dp"
+                    android:layout_marginBottom="4dp"
+                    android:layout_gravity="center"
+                    android:gravity="center"
                     android:id="@+id/button_no_camera" />
 
             </LinearLayout>
@@ -62,6 +77,7 @@
                 android:orientation="horizontal"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
+                android:layout_marginBottom="8dp"
                 android:layout_below="@+id/first_button_layout"
                 android:layout_alignParentStart="true">
 
@@ -69,14 +85,30 @@
                     android:layout_weight="1"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
+                    android:background="@drawable/bg_button"
+                    android:textColor="@color/text_white"
                     android:text="@string/pick_one_photo"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginEnd="8dp"
+                    android:layout_marginTop="4dp"
+                    android:layout_marginBottom="4dp"
+                    android:layout_gravity="center"
+                    android:gravity="center"
                     android:id="@+id/button_one_photo" />
 
                 <Button
                     android:layout_weight="1"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
+                    android:background="@drawable/bg_button"
+                    android:textColor="@color/text_white"
                     android:text="@string/pick_photo_gif"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginEnd="8dp"
+                    android:layout_marginTop="4dp"
+                    android:layout_marginBottom="4dp"
+                    android:layout_gravity="center"
+                    android:gravity="center"
                     android:id="@+id/button_photo_gif" />
 
             </LinearLayout>
