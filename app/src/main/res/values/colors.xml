@@ -5,13 +5,13 @@
     <color name="colorAccent">#3098CE</color>
 	
 	<!-- Photo Picker -->
-	<color name="picker_pager_bg">#CA000000</color>
-	<color name="picker_selected_bg">#44000000</color>
-	<color name="picker_black_40">#282828</color>
+	<color name="picker_pager_bg">#ffffffff</color>
+	<color name="picker_selected_bg">#ffffffff</color>
+	<color name="picker_black_40">#eeeeee</color>
 	<color name="picker_common_primary">#f3f3f3</color>
 
-	<color name="picker_text_40">#282828</color>
-	<color name="picker_text_80">#505050</color>
+	<color name="picker_text_40">#eeeeee</color>
+	<color name="picker_text_80">#aaaaaa</color>
 	<color name="picker_text_120">#787878</color>
 
 	<color name="text_white">#FFFFFF</color>
