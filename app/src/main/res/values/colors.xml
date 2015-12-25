@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <color name="colorPrimary">#3098CE</color>
-    <color name="colorPrimaryDark">#4098FF</color>
+    <color name="colorPrimaryDark">#3098CE</color>
     <color name="colorAccent">#3098CE</color>
 	
 	<!-- Photo Picker -->

@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.gavin.amazingcamera.photopicker.widget.SquareItemLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<com.gavin.amazingcamera.photopicker.widget.SquareItemLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    >
+    android:layout_height="match_parent" >
   <ImageView
       android:padding="1dip"
       android:layout_gravity="center"
@@ -11,19 +11,16 @@
       android:layout_width="match_parent"
       android:background="@drawable/photo_bg"
       android:layout_height="match_parent"
-      android:adjustViewBounds="true"
-      />
+      android:adjustViewBounds="true" />
 
   <ImageView
       android:layout_alignParentTop="true"
       android:layout_alignParentRight="true"
       android:clickable="true"
-      android:padding="5dip"
       android:id="@+id/v_selected"
-      android:src="@drawable/photo_checkbox_bg"
+      android:src="@drawable/photo_checkbox_circle_bg"
       android:scaleType="center"
-      android:layout_width="60dp"
-      android:layout_height="60dp"
-      />
+      android:layout_width="40dp"
+      android:layout_height="40dp" />
 
 </com.gavin.amazingcamera.photopicker.widget.SquareItemLayout>

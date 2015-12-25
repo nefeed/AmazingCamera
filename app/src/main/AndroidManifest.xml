@@ -42,15 +42,14 @@
         </activity>
 
         <activity android:name="com.gavin.amazingcamera.photopicker.PhotoPickerActivity"
-            android:theme="@style/Theme.AppCompat.NoActionBar"
-            />
+            android:theme="@style/AppTheme.NoActionBar" />
 
         <activity android:name="com.gavin.amazingcamera.photopicker.PhotoPagerActivity"
-            android:theme="@style/Theme.AppCompat.NoActionBar"/>
+            android:theme="@style/AppTheme.NoActionBar"/>
 
         <!--自定义的相机界面-->
         <activity android:name="com.gavin.amazingcamera.MyCameraActivity"
-            android:theme="@style/Theme.AppCompat.NoActionBar"/>
+            android:theme="@style/AppTheme.NoActionBar"/>
 
     </application>
 
