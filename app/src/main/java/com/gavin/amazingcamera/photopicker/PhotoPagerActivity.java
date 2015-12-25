@@ -34,7 +34,9 @@ public class PhotoPagerActivity extends AppCompatActivity {
 
     private ActionBar actionBar;
     private boolean showDelete;
-    @Override protected void onCreate(Bundle savedInstanceState) {
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.activity_photo_pager);
@@ -77,7 +79,9 @@ public class PhotoPagerActivity extends AppCompatActivity {
     }
 
 
-    @Override public boolean onCreateOptionsMenu(Menu menu) {
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+
         if (showDelete){
             getMenuInflater().inflate(R.menu.menu_preview, menu);
         }
@@ -85,7 +89,8 @@ public class PhotoPagerActivity extends AppCompatActivity {
     }
 
 
-    @Override public void onBackPressed() {
+    @Override
+    public void onBackPressed() {
 
         Intent intent = new Intent();
         intent.putExtra(PhotoPickerActivity.KEY_SELECTED_PHOTOS, pagerFragment.getPaths());

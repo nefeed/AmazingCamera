@@ -7,6 +7,6 @@
       android:id="@+id/done"
       android:title="@string/picker_done"
       android:orderInCategory="100"
-      app:showAsAction="ifRoom"
-      />
+      android:textColor="@color/text_white"
+      app:showAsAction="ifRoom" />
 </menu>

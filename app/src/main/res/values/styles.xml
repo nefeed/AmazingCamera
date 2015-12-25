@@ -6,18 +6,40 @@
         <item name="windowActionBar">false</item>
         <item name="android:windowNoTitle">true</item>
         <item name="windowNoTitle">true</item>
-        <item name="colorPrimary">@color/colorPrimary</item>
-        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
+        <!-- toolbar（actionbar）颜色 -->
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <!-- 状态栏颜色 -->
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <!-- 窗口的背景颜色 -->
+        <item name="android:windowBackground">@color/background</item>
+        <!-- 标题颜色 -->
+        <item name="android:textColorPrimary">#FFFFFF</item>
+        <!-- 箭头 -->
+        <item name="drawerArrowStyle">@style/AppTheme.DrawerArrowToggle</item>
+        <!-- 菜单颜色 -->
+        <!--<item name="android:actionMenuTextColor">@color/text_white</item>-->
+        <!-- 菜单按钮 -->
+        <!--<item name="actionOverflowButtonStyle">@style/AppTheme.overflow</item>-->
     </style>
 
     <style name="AppTheme.NoActionBar" parent="AppTheme">
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
     </style>
+    
+    <!--<style name="ToolbarTitleText" >-->
+        <!--<item name="actionMenuTextColor">#FFFFFF</item>-->
+    <!--</style>-->
 
-    <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+    <!-- 箭头颜色 -->
+    <style name="AppTheme.DrawerArrowToggle" parent="Base.Widget.AppCompat.DrawerArrowToggle">
+        <item name="color">@android:color/white</item>
+    </style>
 
-    <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+    <!--&lt;!&ndash; 替换菜单文件 &ndash;&gt;-->
+    <!--<style name="AppTheme.overflow" parent="Widget.AppCompat.ActionButton.Overflow">-->
+        <!--<item name="android:src">@drawable/android</item>-->
+    <!--</style>-->
 
 </resources>

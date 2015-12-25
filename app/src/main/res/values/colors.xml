@@ -3,6 +3,7 @@
     <color name="colorPrimary">#3098CE</color>
     <color name="colorPrimaryDark">#3098CE</color>
     <color name="colorAccent">#3098CE</color>
+	<color name="background">#FFFFFF</color>
 	
 	<!-- Photo Picker -->
 	<color name="picker_pager_bg">#ffffffff</color>
